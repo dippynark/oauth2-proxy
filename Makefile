@@ -4,7 +4,7 @@ GOLANGCILINT ?= golangci-lint
 BINARY := oauth2-proxy
 VERSION ?= $(shell git describe --always --dirty --tags 2>/dev/null || echo "undefined")
 # Allow to override image registry.
-REGISTRY ?= quay.io/oauth2-proxy
+REGISTRY ?= dippynark
 .NOTPARALLEL:
 
 GO_MAJOR_VERSION = $(shell $(GO) version | cut -c 14- | cut -d' ' -f1 | cut -d'.' -f1)
@@ -43,7 +43,7 @@ $(BINARY):
 
 .PHONY: docker
 docker:
-	$(DOCKER_BUILD) -f Dockerfile -t $(REGISTRY)/oauth2-proxy:latest .
+	$(DOCKER_BUILD) -f Dockerfile -t $(REGISTRY)/oauth2-proxy:$(VERSION) .
 
 .PHONY: docker-all
 docker-all: docker
